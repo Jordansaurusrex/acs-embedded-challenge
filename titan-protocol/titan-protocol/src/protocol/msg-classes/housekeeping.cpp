@@ -33,6 +33,7 @@ bool process_housekeeping_payload(const char* inputData, size_t& offset,
 
     int digit;
     // Status
+    //could abstract this into a helper function to reduce code duplication for parsing integers
     do {
         if (!process_digit(inputData[offset], &digit)) {
             cerr << "Invalid housekeeping status: expected a digit\n";
@@ -128,6 +129,7 @@ bool process_housekeeping_payload(const char* inputData, size_t& offset,
 
 void print_housekeeping(const HousekeepingPacket& housekeeping)
 {
+    //Potentially computationally expensive formatting , but keeps the assignment output readable.
     ostringstream output;
     output << fixed << setprecision(3)
            << "Housekeeping: sequence=" << housekeeping.header.sequence_number

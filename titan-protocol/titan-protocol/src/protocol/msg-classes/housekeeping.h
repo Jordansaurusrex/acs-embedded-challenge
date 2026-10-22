@@ -23,7 +23,7 @@ struct HousekeepingPacket
 
 // Reads status, theta, phi, intensity, and temperature, advancing offset to the end marker.
 // Validates the end marker before returning success.
-// inputData must not be null. Payload fields must start at zero.
+// inputData must not be null.
 // Numeric fields require at least one digit; empty fields and lone minus signs are rejected.
 bool process_housekeeping_payload(const char* inputData, size_t& offset,
                                  HousekeepingPayload* payload);

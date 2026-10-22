@@ -36,6 +36,7 @@ bool process_header(const char* inputData, size_t& offset, PacketHeader* header)
 
     int digit;
     // Command ID
+    //these could be abstracted into a helper function to reduce code duplication
     do {
         if (!process_digit(inputData[offset], &digit)) {
             cerr << "Invalid command ID: expected a digit\n";

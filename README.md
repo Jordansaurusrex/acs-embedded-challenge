@@ -1,30 +1,30 @@
-# Programming Challenges for Software Candidates
+1. Build and run on Linux or WSL with g++ && C++11
+2. In this folder, run `cd titan-protocol/titan-protocol` then `make clean` then  `make` then `./titan-protocol`.
+3. Expected output
+    <Data> $1;15;6607;;| </Data>
+    <Output> Ping: sequence=15, timestamp=6607 ms </Output>
+    <Data2> $10;1;0;0;12000;-90000;68;-29950;| </Data2>
+    <Output2> Housekeeping: sequence=1, timestamp=0 ms, status=0 (operational), theta=12.000 deg, phi=-90.000 deg, intensity=68, temperature=-29.950 deg 
+    </Output2>
 
 
 
-## Usage
 
-Before giving the challenge to a candidate, it is helpful if you actually do the challenge yourself. This will give you a better understanding of the difficulties of the challenge.
+By default, it reads titan-protocol-capture.txt from the current working directory.
+To use another file, run `./titan-protocol path/to/capture.txt` (quote paths containing spaces).
+It prints each line with the decoded values underneath. The supplied capture has 20 Ping and 10 housekeeping messages.
+----------------------------------------------------------------------------------------------------------------
 
-1. Do not look at the existing solutiuons (in the solutions directory) before starting
-If you have already seen the solutions, your solution will be biased.
+As a note, I went with a C architecture in C++. This can be done with an Object-oriented approach, but i thought it would add unnecessary complexity in which virtual functions and allocating data to the heap might have to be managed. In addition, there was also a limited number of message classes so a struct approach for this issue seemed appropriate for the scale.
 
+So I aimed to make this as readable as possible while keeping time and space complexity low. I tried to structure the code so it was modular and easy to expand. However, theres an argument that objects could do this.
 
+The solution tries to read messages line by line, handling a common header between messages and storing the data in a relevant structure. Then, based on the command ID, it handles the payload.
 
-1. Commit your result when you're done (use git)
-This helps us collect a variety of solutions to better understand the spread of skill levels.
-
-To get started, run `just new-wizards-solution fname-lname` (or `just new-titan-protocol-solution fname-lname`) to create the files. Use `just run-wizards-solution-for fname-lname` (or `just run-titan-protocol-solution-for fname-lname`) to run your solution.
-
-> Note: The justfile has been written for Linux. If you are on Windows, take a minute to edit the justfile for Windows (using the `\[windows]` attribute as shown in the \[manual](https://just.systems/man/en/attributes.html)).
-
-## Challenges
+To store the data from the file, we read each character and convert digit characters to numbers by subtracting `0`, rejecting any that isn't a valid number, and append based on the unit.
 
 
-
-### Titan Protocol
-
-This challenge is geared towards C and C++. In Python, the challenge is entirely trivial (though making it robust is slightly less so).
-
-The goal of this challenge is not to *challenge* the candidate but to have a simple codebase that can be discussed and dissected during the interview.
+Known Issues
+1. Multiple messages on one line: I assumed each message is on a new line. To fix this, I'd read until a '|' is seen.
+2. I didn't test SENSOR_FAILURE as the script was broken. I didn't have time to investigate/fix this issue and unit tests are missing.
 

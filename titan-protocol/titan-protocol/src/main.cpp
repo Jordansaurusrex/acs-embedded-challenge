@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    //if 2nd arg update file field
+    //if 2nd arg, update filename
     const char* filename = "titan-protocol-capture.txt";
     if (argc == 2) {
         filename = argv[1];
