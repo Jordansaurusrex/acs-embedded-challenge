@@ -1,0 +1,2 @@
+titan-protocol: src/main.cpp src/decoder/packet_handler.cpp src/decoder/packet_frame_decoder.cpp src/protocol/msg-classes/ping.cpp src/protocol/msg-classes/housekeeping.cpp src/titan_utils.cpp src/protocol/packet_header.h src/protocol/msg-classes/housekeeping.h src/protocol/msg-classes/ping.h src/decoder/packet_handler.h src/decoder/packet_frame_decoder.h src/titan_utils.h
+	g++ src/main.cpp src/decoder/packet_handler.cpp src/decoder/packet_frame_decoder.cpp src/protocol/msg-classes/ping.cpp src/protocol/msg-classes/housekeeping.cpp src/titan_utils.cpp -o titan-protocol
